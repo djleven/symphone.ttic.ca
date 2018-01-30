@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% include '/partials/' ~ entity_type ~ '-base.html' %}
+
+<div class="clearfix"></div>
+<div id="app">
+<h2 class="text-center">Update List:</h2>
+    <v-todo-table :columns="columns" :data="data" :options="options">
+       <span slot="title" slot-scope="props" :class="props.row.status">${ props.row.title }</span>
+       <template slot="child_row" scope="props" class="text-left">
+            <h2 :class="props.row.status">${ props.row.title }</h2>
+            <div class="col-md-4 text-left vue-child">
+                <div><b>Suggested Todo Status:</b> <span :class="props.row.status">${ props.row.status }</span></div>
+                <div><b>Created at:</b> ${ props.row.created }</div>
+                <div><b>Status Legend:</b></div>
+                	<span class="New">New,</span>
+                	<span class="In Progress">In Progress,</span>
+                	<span class="Completed">Completed,</span>
+                	<span class="Cancelled">Cancelled</span>
+                </div>
+            </div>
+            <div class="col-md-8 vue-child text-left">
+                <div><b>Description:</b> ${ props.row.description }</div>
+            </div>
+       </template>
+    </v-todo-table>
+
+    <div><b>Status Legend: </b><span class="New">New, </span><span class="In Progress">In Progress, </span><span class="Completed">Completed, </span><span class="Cancelled">Cancelled </span>
+    </div>
+</div>
+<div class="col-md-12">
+    <h2 class="text-center">Add an Update:</h2>
+    <div class="col-md-6 col-md-offset-3">
+    {{ include('/partials/form.html') }}
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
+<script src="/js/vue-tables.js"></script>
+<script> var todo = {{ entity.updates|json_encode|raw }};</script>
+<script src="/js/single-todo.js"></script>
+{% endblock %}

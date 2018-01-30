@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="col-md-12">
+    <h1>{{ Entity }} JSON:</h1>
+    <pre class="well">{{ entity }}</pre>
+<script>
+document.write('<button class="btn btn-xs btn-success" onclick="location.href=\'' + document.referrer + '\';">Go back</button><span class="glyphicon glyphicons-hand-left glyphicon-white"></span>');
+</script>
+</div>
+
+{% endblock %}

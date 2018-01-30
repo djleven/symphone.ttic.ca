@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1 class="text-center">Complete {{ Entity }} List</h1>
+
+<div id="app">
+    <v-todo-table :columns="columns" :data="data" :options="options">
+       <a slot="title" slot-scope="props" :class="props.row.status" :href="props.row.url">${ props.row.title }</a>
+        <a slot="project" slot-scope="props" :href="props.row.project_url">${ props.row.project }</a>
+        <a slot="edit" slot-scope="props" :href="props.row.edit" class="glyphicon glyphicon-pencil"></a>
+        <form slot="delete" slot-scope="props" method="post" :action="props.row.delete">
+            <button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove glyphicon-white"></span></button>
+        </form>
+        <template slot="child_row" scope="props" class="text-left">
+            <a :href="props.row.url"><h2 :class="props.row.status">${ props.row.title }</h2></a>
+            <div class="col-md-4 text-left vue-child">
+                <div><b>Status:</b> <span :class="props.row.status">${ props.row.status }</span></div>
+                <div><b>Created at:</b> ${ props.row.created }</div>
+                <div><b>Status Legend:</b></div>
+                	<span class="New">New,</span>
+                	<span class="In Progress">In Progress,</span>
+                	<span class="Completed">Completed,</span>
+                	<span class="Cancelled">Cancelled</span>
+                </div>
+            </div>
+            <div class="col-md-8 vue-child text-left">
+                <div><b>Description:</b><br> ${ props.row.description }</div>
+            </div>
+        </template>
+    </v-todo-table>
+
+	{{ include('/partials/index-actions.html') }}
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12">
+    <h4 class="text-center">New {{ Entity }}s are added inside Projects</h4>
+</div>
+{{ include('/partials/index-scripts.html') }}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% include '/partials/' ~ entity_type ~ '-base.html' %}
+
+<div id="app">
+<h2 class="text-center">Todo List:</h2>
+    <v-todo-table :columns="columns" :data="data" :options="options">
+       <a slot="title" slot-scope="props" :class="props.row.status" :href="props.row.url">${ props.row.title }</a>
+       <a slot="url" slot-scope="props" :href="props.row.url" class="glyphicon glyphicon-pencil"></a>
+       <template slot="child_row" scope="props" class="text-left">
+            {{ include('/partials/general-vue-child.html') }}
+            <div class="col-md-8 vue-child text-left">
+                <div><b>Description:</b> ${ props.row.description }</div>
+                <span><b>Updates:</b></span>
+                <template v-for="(update, index) in props.row.updates" v-if="props.row.updates.length">
+                	<a :class="update.status" :href="update.url">${ update.title }</a><span v-if="index != (props.row.updates.length - 1)">, </span>
+                </template>
+                <span v-else>No updates yet!</span>
+            </div>
+       </template>
+    </v-todo-table>
+
+    <div><b>Status Legend: </b><span class="New">New, </span><span class="In Progress">In Progress, </span><span class="Completed">Completed, </span><span class="Cancelled">Cancelled </span>
+    </div>
+</div>
+<div class="col-md-12">
+    <h2 class="text-center">Add a Todo:</h2>
+    <div class="col-md-6 col-md-offset-3">
+    {{ include('/partials/form.html') }}
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
+<script src="/js/vue-tables.js"></script>
+<script> var project = {{ entity.todos|json_encode|raw }};</script>
+<script src="/js/single-{{ entity_type }}.js"></script>
+{% endblock %}

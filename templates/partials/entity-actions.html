@@ -1,0 +1,27 @@
+<div class="todo-actions text-center"> 
+	<!-- Option 1 -> open raw json in new tab-->
+	<form method="get" class="col-sm-3" action="/{{ entity_type }}/{{ entity.id }}/api" target="_blank">
+		<button type="submit" class="btn btn-xs btn-success">View in raw JSON
+			<span class="glyphicon glyphicon-search glyphicon-white"></span>
+		</button>
+	</form>
+    <!-- Option 2 -> open raw json in current tab - inline -->
+	<form method="get" class="col-sm-3" action="/{{ entity_type }}/{{ entity.id }}/json">
+		<button type="submit" class="btn btn-xs btn-success">View in JSON inline
+			<span class="glyphicon glyphicon-search glyphicon-white"></span>
+		</button>
+	</form>
+
+	<!-- Edit entity -->
+	<form method="post" class="col-sm-3" action="/{{ entity_type }}/edit/{{ entity.id }}">
+		<button type="submit" class="btn btn-xs btn-warning">Edit {{ Entity }}
+			<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+		</button>
+	</form>
+	<!-- Delete entity -->
+	<form method="post" class="col-sm-3" action="/{{ entity_type }}/delete/{{ entity.id }}">
+		<button type="submit" class="btn btn-xs btn-danger">Delete {{ Entity }}
+			<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+		</button>
+	</form>
+</div>

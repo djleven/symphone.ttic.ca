@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="col-md-12">
+    <h2 class="text-center">Add a {{ Entity }}:</h2>
+
+    {{ include('/partials/project-form-horizontal.html') }}
+</div>
+<div class="clearfix"></div>
+<h1 class="text-center">{{ Entity }} List:</h1>
+
+<div id="app">
+    <v-todo-table :columns="columns" :data="data" :options="options">
+       <a slot="title" slot-scope="props" :class="props.row.status" :href="props.row.url">${ props.row.title }</a>
+       <a slot="url" slot-scope="props" :href="props.row.url" class="glyphicon glyphicon-pencil"></a>
+       <form slot="delete" slot-scope="props" method="post" :action="props.row.delete">
+            <button type="submit" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove glyphicon-white"></span></button>
+       </form>
+       <template slot="child_row" scope="props" class="text-left">
+            <a :href="props.row.url"><h2 :class="props.row.status">${ props.row.title }</h2></a>
+            <div class="col-md-4 text-left vue-child">
+                <div><b>Status:</b> <span :class="props.row.status">${ props.row.status }</span></div>
+                <div><b>Created at:</b> ${ props.row.created }</div>
+                <div><b>Updated at:</b> ${ props.row.updated }</div>
+                <div><b>Status Legend:</b></div>
+                	<span class="New">New,</span>
+                	<span class="In Progress">In Progress,</span>
+                	<span class="Completed">Completed,</span>
+                	<span class="Cancelled">Cancelled</span>
+                </div>
+            </div>
+            <div class="col-md-8 vue-child text-left">
+                <div><b>Description:</b> ${ props.row.description }</div>
+                <span><b>Todos:</b></span>
+                <template v-for="(todo, index) in props.row.todos" v-if="props.row.todos.length">
+                	<a :class="todo.status" :href="todo.url">${ todo.title }</a><span v-if="index != (props.row.todos.length - 1)">, </span>
+                </template>
+                <span v-else>No todos yet!</span>
+            </div>
+       </template>
+    </v-todo-table>
+
+	{{ include('/partials/index-actions.html') }}
+</div>
+{{ include('/partials/index-scripts.html') }}
+{% endblock %}

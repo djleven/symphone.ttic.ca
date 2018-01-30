@@ -1,0 +1,12 @@
+            <a :href="props.row.url"><h2 :class="props.row.status">${ props.row.title }</h2></a>
+            <div class="col-md-4 text-left vue-child">
+                <div><b>Status:</b> <span :class="props.row.status">${ props.row.status }</span></div>
+                <div><b>Created at:</b> ${ props.row.created }</div>
+                <div><b>Updated at:</b> ${ props.row.updated }</div>
+                <div><b>Status Legend:</b></div>
+                	<span class="New">New,</span>
+                	<span class="In Progress">In Progress,</span>
+                	<span class="Completed">Completed,</span>
+                	<span class="Cancelled">Cancelled</span>
+                </div>
+            </div>
